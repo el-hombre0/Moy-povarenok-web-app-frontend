@@ -39,7 +39,7 @@ export const Header = () => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" className={classes.title}>
-                <Link to="/" >Трактир "По пути"</Link></Typography>
+                <Link to="/" >Поворёнок</Link></Typography>
               <Box m={10}>
                   {isAuth ? (
                     <>
