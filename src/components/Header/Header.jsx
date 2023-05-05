@@ -1,6 +1,5 @@
 // import s from "./Header.module.css";
 import { Link } from "react-router-dom";
-// import Button from "@mui/material/Button";
 import Button from "@material-ui/core/Button";
 import {
   AppBar,
@@ -33,7 +32,7 @@ export const Header = () => {
   const classes = useStyles();
 
   return (
-      <AppBar position="fixed" color="default">
+      <AppBar position="relative" color="default">
         <Container maxWidth="lg">
             <Toolbar>
               <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButtom}>
@@ -44,12 +43,10 @@ export const Header = () => {
               <Box m={10}>
                   {isAuth ? (
                     <>
-                      <Link to="/add-dish">
+                      <Link to="/dishes/create">
                         <Button color="primary" variant="contained">Добавить блюдо</Button>
                       </Link>
-                      <Link to="/register">
                         <Button color="secondary" variant="contained" onClick={onClickLogout}>Выйти</Button>
-                      </Link>
                     </>
                   ) : (
                     <>
