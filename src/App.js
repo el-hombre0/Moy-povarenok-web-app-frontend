@@ -1,20 +1,30 @@
-import './App.css';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import "./App.css";
+import {Header} from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
-import {Home, AddDish, FullDish, Login, Registration} from './pages';
+import { Home, AddDish, FullDish, Login, Registration } from "./pages";
 
-import Container from '@mui/material/Container';
+import { Routes, Route } from "react-router-dom";
+
+import Container from "@mui/material/Container";
+
+
 function App() {
   return (
-    <>
+    <div className="App">
       <Header></Header>
       <Container maxWidth="lg">
-        <Home></Home>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/dish:id" element={<FullDish />}></Route>
+          <Route path="/add-dish" element={<AddDish />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Registration />}></Route>
+
+        </Routes>
       </Container>
       <Footer></Footer>
-    </>
-    
+    </div>
   );
 }
 
