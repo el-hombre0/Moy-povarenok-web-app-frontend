@@ -1,7 +1,6 @@
 import "./App.css";
 import {Header} from "./components/Header/Header";
-import { Dish } from "./components/Dish/Dish";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/Footer/footer";
 
 import { Home, AddDish, FullDish, Login, Registration } from "./pages";
 
@@ -14,7 +13,6 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      <Dish/>
       <Container maxWidth="lg">
         <Routes>
           <Route path="/" element={<Home />}></Route>
