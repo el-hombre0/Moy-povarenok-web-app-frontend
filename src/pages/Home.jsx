@@ -4,7 +4,7 @@ import axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import { TagsBlock } from "../components/TagsBlock";
 import { Dish } from "../components/Dish";
-import { fetchDishes } from "../redux/slices/dishes";
+import { fetchDishes, fetchTags } from "../redux/slices/dishes";
 
 function Home() {
   const dispatch = useDispatch();
@@ -12,10 +12,12 @@ function Home() {
 
   /** Флаг, что блюда загружаются */
   const isDishesLoading = dishes.status === "loading";
+  const isTagsLoading = tags.status === "loading";
 
   /** Отправка action через dispatch, при первом render нужно сделать запрос на backend*/
   React.useEffect(() => {
     dispatch(fetchDishes());
+    dispatch(fetchTags());
   }, []);
 
   return (
@@ -28,7 +30,7 @@ function Home() {
         <Grid xs={8} item>
           {(isDishesLoading ? [...Array(5)] : dishes.items).map((obj, index) =>
             isDishesLoading ? (
-              <Dish key={index} isLoading={true}/>
+              <Dish key={index} isLoading={true} />
             ) : (
               <Dish
                 id={obj._id}
@@ -37,6 +39,7 @@ function Home() {
                 user={obj.user}
                 createdAt={obj.createdAt}
                 cookingtime={obj.cookingtime}
+                description={obj.description}
                 tags={obj.tags}
                 ingredients={obj.ingredients}
                 isLoading={true}
@@ -46,10 +49,7 @@ function Home() {
           )}
         </Grid>
         <Grid xs={4} item>
-          <TagsBlock
-            items={["react", "typescript", "заметки"]}
-            isLoading={false}
-          />
+          <TagsBlock items={tags.items} isLoading={isTagsLoading} />
         </Grid>
       </Grid>
     </>

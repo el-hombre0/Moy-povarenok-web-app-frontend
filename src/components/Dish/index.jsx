@@ -43,6 +43,8 @@ export const Dish = ({
         <h2>
           {isFullDish ? title : <Link to={`/dishes/${_id}`}>{title}</Link>}
         </h2>
+        <AccessTimeOutlinedIcon />
+        <span>{cookingtime} мин.</span>
         <h3>
           {isFullDish ? (
             description
@@ -65,12 +67,7 @@ export const Dish = ({
           ))}
         </ul>
         {children && <div className="content">{children}</div>}
-        <ul className="postDetails">
-          <li>
-            <AccessTimeOutlinedIcon />
-            <span>{cookingtime}</span>
-          </li>
-        </ul>
+        
       </div>
     </Box>
   );

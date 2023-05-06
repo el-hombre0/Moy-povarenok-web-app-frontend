@@ -10,6 +10,27 @@ export const fetchDishes = createAsyncThunk('dishes/fetchDishes', async () => {
     const { data } = await axios.get('/dishes');
     return data;
 });
+
+/** Запрос (action) на получение тэгов 
+ * @async
+ * @param 
+*/
+export const fetchTags = createAsyncThunk('dishes/fetchTags', async () => {
+    /** Получение data из axios-запроса */
+    const { data } = await axios.get('/tags');
+    return data;
+});
+
+/** Запрос (action) на получение ингредиентов 
+ * @async
+ * @param 
+*/
+export const fetchIngredients = createAsyncThunk('dishes/fetchIngredients', async () => {
+    /** Получение data из axios-запроса */
+    const { data } = await axios.get('/ingredients');
+    return data;
+});
+
 /** Начальное состояние */
 const initialState = {
     dishes: {
@@ -48,6 +69,20 @@ const dishesSlice = createSlice({
             state.dishes.items = [];
             state.dishes.status = 'error';
         },
+
+
+        [fetchTags.pending]: (state) => {
+            state.tags.items = [];
+            state.tags.status = 'loading';
+        },
+        [fetchTags.fulfilled]: (state, action) => {
+            state.tags.items = action.payload;
+            state.tags.status = 'loaded';
+        },
+        [fetchTags.rejected]: (state) => {
+            state.tags.items = [];
+            state.tags.status = 'error';
+        }
     }
 })
 
