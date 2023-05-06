@@ -1,6 +1,5 @@
 import "./App.css";
-import {Header} from "./components/Header/Header";
-import Footer from "./components/Footer/footer";
+import {Header, Footer} from "./components/";
 
 import { Home, AddDish, FullDish, Login, Registration } from "./pages";
 
@@ -16,7 +15,7 @@ function App() {
       <Container maxWidth="lg">
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/dishes:id" element={<FullDish />}></Route>
+          <Route path="/dishes/:id" element={<FullDish />}></Route>
           <Route path="/add-dish" element={<AddDish />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Registration />}></Route>

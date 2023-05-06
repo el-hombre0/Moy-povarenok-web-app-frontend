@@ -6,7 +6,7 @@ import { UserInfo } from "../UserInfo";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import { Link } from "react-router-dom";
 export const Dish = ({
-  _id,
+  id,
   title,
   createdAt,
   cookingtime,
@@ -28,7 +28,7 @@ export const Dish = ({
 
   return (
     <Box>
-      <Link to={`/dishes/${_id}/edit`}>
+      <Link to={`/dishes/${id}/edit`}>
         <IconButton color="primary">
           <EditIcon />
         </IconButton>
@@ -41,7 +41,7 @@ export const Dish = ({
       <UserInfo {...user} additionalText={createdAt} />
       <div>
         <h2>
-          {isFullDish ? title : <Link to={`/dishes/${_id}`}>{title}</Link>}
+          {isFullDish ? title : <Link to={`/dishes/${id}`}>{title}</Link>}
         </h2>
         <AccessTimeOutlinedIcon />
         <span>{cookingtime} мин.</span>
@@ -49,13 +49,13 @@ export const Dish = ({
           {isFullDish ? (
             description
           ) : (
-            <Link to={`/dishes/${_id}`}>{description}</Link>
+            <Link to={`/dishes/${id}`}>Подробное описание</Link>
           )}
         </h3>
         <ul>
           {ingredients?.map((name) => (
             <li key={name}>
-              <Link to={`/ingredients/${name}`}>#{name}</Link>
+              <Link to={`/ingredients/${name}`}>{name}</Link>
             </li>
           ))}
         </ul>
