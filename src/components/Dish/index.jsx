@@ -50,20 +50,20 @@ export const Dish = ({
             <Link to={`/dishes/${_id}`}>{description}</Link>
           )}
         </h3>
-        {/* <ul>
-          {ingredients.map((name) => (
+        <ul>
+          {ingredients?.map((name) => (
             <li key={name}>
               <Link to={`/ingredients/${name}`}>#{name}</Link>
             </li>
           ))}
         </ul>
         <ul>
-          {tags.map((name) => (
+          {tags?.map((name) => (
             <li key={name}>
               <Link to={`/tag/${name}`}>#{name}</Link>
             </li>
           ))}
-        </ul> */}
+        </ul>
         {children && <div className="content">{children}</div>}
         <ul className="postDetails">
           <li>

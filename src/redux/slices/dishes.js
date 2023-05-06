@@ -31,6 +31,24 @@ const dishesSlice = createSlice({
     name: 'dishes',
     initialState,
     reducer: {},
+    /** Описание состояния асинхронного action для понимания, когда идёт загрузка данных с backend*/
+    extraReducers: {
+        /** При состоянии pending - загрузка */
+        [fetchDishes.pending]: (state) => {
+            state.dishes.items = [];
+            state.dishes.status = 'loading';
+        },
+        /** При состоянии fullfilled - загружено */
+        [fetchDishes.fulfilled]: (state, action) => {
+            state.dishes.items = action.payload;
+            state.dishes.status = 'loaded';
+        },
+        /** Если при загрузке произошла ошибка */
+        [fetchDishes.rejected]: (state) => {
+            state.dishes.items = [];
+            state.dishes.status = 'error';
+        },
+    }
 })
 
 export const dishesReducer = dishesSlice.reducer;
