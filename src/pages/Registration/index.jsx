@@ -3,12 +3,14 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsAuth } from "../../redux/slices/auth";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { fetchRegister } from "../../redux/slices/auth";
 
-export const Login = () => {
+export const Registration = () => {
   /**Флаг того, что user авторизован */
   const isAuth = useSelector(selectIsAuth);
 
@@ -21,8 +23,9 @@ export const Login = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      email: "nagievd@mail.com",
-      password: "1q2w3e4r",
+      fullName: "",
+      email: "",
+      password: "",
     },
     mode: "onChange",
   });
@@ -32,20 +35,18 @@ export const Login = () => {
    */
   const onSubmit = async (values) => {
     /**Получение action и получение информации, авторизован user или нет */
-    const data = await dispatch(fetchAuth(values));
+    const data = await dispatch(fetchRegister(values));
     console.log(data);
 
-    if (!data.payload){
-      return alert("Не удалось авторизоваться, попробуйте позже.");
+    if (!data.payload) {
+      return alert("Не удалось зарегистрироваться, попробуйте позже.");
     }
-    
+
     if ("token" in data.payload) {
       /**Использование localStorage браузера для хранения user токена */
       window.localStorage.setItem("token", data.payload.token);
-    };
+    } 
   };
-
-  // React.useEffect();
 
   /**Переадресация на главную страницу после успешной авторизации */
   if (isAuth) {
@@ -54,8 +55,19 @@ export const Login = () => {
 
   return (
     <Paper>
-      <Typography variant="h5">Вход в аккаунт</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Typography variant="h5">Создание аккаунта</Typography>
+        <div>
+          <Avatar sx={{ width: 100, height: 100 }} />
+        </div>
+        <TextField
+          label="Полное имя"
+          type="fullName"
+          error={Boolean(errors.fullName?.message)}
+          helperText={errors.fullName?.message}
+          {...register("fullName", { required: "Укажите полное имя" })}
+          fullWidth
+        />
         <TextField
           label="E-Mail"
           type="email"
@@ -66,13 +78,14 @@ export const Login = () => {
         />
         <TextField
           label="Пароль"
+          type="password"
           error={Boolean(errors.password?.message)}
           helperText={errors.password?.message}
           {...register("password", { required: "Укажите пароль" })}
           fullWidth
         />
         <Button type="submit" disabled={!isValid} size="large" variant="contained" fullWidth>
-          Войти
+          Зарегистрироваться
         </Button>
       </form>
     </Paper>
