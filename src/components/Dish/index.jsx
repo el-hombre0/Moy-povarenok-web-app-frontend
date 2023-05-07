@@ -67,7 +67,6 @@ export const Dish = ({
           ))}
         </ul>
         {children && <div className="content">{children}</div>}
-        
       </div>
     </Box>
   );

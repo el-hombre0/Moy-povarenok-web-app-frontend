@@ -21,8 +21,8 @@ export const Login = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      email: "test@test.com",
-      password: "password123",
+      email: "nagievd@mail.com",
+      password: "1q2w3e4r",
     },
     mode: "onChange",
   });
@@ -30,16 +30,27 @@ export const Login = () => {
   /**Выполняется п корректной валидации в react form
    * @param values значения react-form
    */
-  const onSubmit = (values) => {
-    dispatch(fetchAuth(values));
+  const onSubmit = async (values) => {
+    /**Получение action и получение информации, авторизован user или нет */
+    const data = await dispatch(fetchAuth(values));
+    console.log(data);
+
+    if (!data.payload){
+      return alert("Не удалось авторизоваться, попробуйте позже.");
+    }
+    
+    if ("token" in data.payload) {
+      /**Использование localStorage браузера для хранения user токена */
+      window.localStorage.setItem("token", data.payload.token);
+    };
   };
 
+  // React.useEffect();
+
   /**Переадресация на главную страницу после успешной авторизации */
-  if(isAuth){
-    return <Navigate to="/" />
+  if (isAuth) {
+    return <Navigate to="/" />;
   }
-  console.log(errors, isValid);
-  console.log("isAuth: ", isAuth);
 
   return (
     <Paper>

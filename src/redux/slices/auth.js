@@ -9,6 +9,14 @@ export const fetchAuth = createAsyncThunk("auth/fetchAuth", async (params) => {
   return data;
 });
 
+/**Проверка, авторизован ли user.
+ * Axios автоматически передаст token из LocalStorage в backend
+ */
+export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
+  const { data } = await axios.get("/auth/me");
+  return data;
+});
+
 /**Начальное состояние для user */
 const initialState = {
   data: null,
@@ -28,6 +36,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: {
+    /** fetchAuth */
     [fetchAuth.pending]: (state) => {
       state.data = null;
       state.status = "loading";
@@ -39,6 +48,20 @@ const authSlice = createSlice({
     },
     /** Если при загрузке произошла ошибка */
     [fetchAuth.rejected]: (state) => {
+      state.data = null;
+      state.status = "error";
+    },
+
+    /** fetchAuthMe */
+    [fetchAuthMe.pending]: (state) => {
+      state.data = null;
+      state.status = "loading";
+    },
+    [fetchAuthMe.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = "loaded";
+    },
+    [fetchAuthMe.rejected]: (state) => {
       state.data = null;
       state.status = "error";
     },
