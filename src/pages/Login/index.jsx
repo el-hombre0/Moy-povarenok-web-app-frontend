@@ -5,10 +5,13 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuth } from "../../redux/slices/auth";
-import { useNavigate } from "react-router-dom";
+import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
+import { useNavigate, Navigate } from "react-router-dom";
 
 export const Login = () => {
+  /**Флаг того, что user авторизован */
+  const isAuth = useSelector(selectIsAuth);
+
   const dispatch = useDispatch();
   /**Подключение react-формы */
   const {
@@ -31,7 +34,12 @@ export const Login = () => {
     dispatch(fetchAuth(values));
   };
 
+  /**Переадресация на главную страницу после успешной авторизации */
+  if(isAuth){
+    return <Navigate to="/" />
+  }
   console.log(errors, isValid);
+  console.log("isAuth: ", isAuth);
 
   return (
     <Paper>

@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
+import { selectIsAuth } from "../../redux/slices/auth";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Header = () => {
-  const isAuth = false;
+  const isAuth = useSelector(selectIsAuth);
 
   const onClickLogout = () => {};
   const classes = useStyles();

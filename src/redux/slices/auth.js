@@ -40,4 +40,7 @@ const authSlice = createSlice({
     },
 });
 
+/**Проверка, авторизован ли клиент */
+export const selectIsAuth = state => Boolean(state.auth.data);
+
 export const authReducer = authSlice.reducer;
