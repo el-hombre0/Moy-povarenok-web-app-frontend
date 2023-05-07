@@ -1,6 +1,5 @@
 import { Tabs, Tab, Grid } from "@material-ui/core";
-import React, { useEffect } from "react";
-import axios from "../axios";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TagsBlock } from "../components/TagsBlock";
 import { Dish } from "../components/Dish";
@@ -8,6 +7,9 @@ import { fetchDishes, fetchTags } from "../redux/slices/dishes";
 
 function Home() {
   const dispatch = useDispatch();
+  /** Получение информации о пользователе  */
+  const userData = useSelector((state) => state.auth.data);
+  
   const { dishes, tags, ingredients } = useSelector((state) => state.dishes);
 
   /** Флаг, что блюда загружаются */
@@ -43,7 +45,7 @@ function Home() {
                 tags={obj.tags}
                 ingredients={obj.ingredients}
                 isLoading={true}
-                isEditable
+                isEditable={userData?._id === obj.user._id}
               />
             )
           )}
