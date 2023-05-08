@@ -2,6 +2,7 @@ import { Dish } from "../components";
 import { useParams } from "react-router-dom";
 import React from "react";
 import axios from "../axios";
+import ReactMarkdown from "react-markdown";
 
 export const FullDish = () => {
   const [data, setData] = React.useState();
@@ -33,14 +34,14 @@ export const FullDish = () => {
         id={data._id}
         title={data.title}
         cookingtime={data.cookingtime}
-        imageUrl={data.imageUrl}
+        imageUrl={data.imageUrl ? `http://localhost:8080${data.imageUrl}` : ""}
         ingredients={data.ingredients}
         user={data.user}
         createdAt={data.createdAt}
         tags={data.tags}
         isFullDish
       >
-        <p>{data.description}</p>
+        <ReactMarkdown children={data.description} />
       </Dish>
     </>
   );

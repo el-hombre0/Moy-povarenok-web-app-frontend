@@ -4,6 +4,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { UserInfo } from "../UserInfo";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchRemoveDish } from "../../redux/slices/dishes";
 export const Dish = ({
   id,
   title,
@@ -19,15 +21,21 @@ export const Dish = ({
   isLoading,
   isEditable,
 }) => {
+  const dispatch = useDispatch();
   //   if (isLoading) {
   //     return <PostSkeleton />;
   //   }
 
-  const onClickRemove = () => {};
+  /** Обработчик удаления блюда  */
+  const onClickRemove = () => {
+    dispatch(fetchRemoveDish(id));
+    if (window.confirm("Вы уверены, что хотите удалить блюдо?")) {
+    }
+  };
 
   return (
     <div>
-      {isEditable && (
+      {/* {isEditable && ( */}
         <div>
           <Box>
             <Link to={`/dishes/${id}/edit`}>
@@ -72,7 +80,7 @@ export const Dish = ({
             </div>
           </Box>
         </div>
-      )}
+       {/* )}  */}
     </div>
   );
 };

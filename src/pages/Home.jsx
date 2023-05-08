@@ -9,7 +9,7 @@ function Home() {
   const dispatch = useDispatch();
   /** Получение информации о пользователе  */
   const userData = useSelector((state) => state.auth.data);
-  
+
   const { dishes, tags, ingredients } = useSelector((state) => state.dishes);
 
   /** Флаг, что блюда загружаются */
@@ -37,7 +37,9 @@ function Home() {
               <Dish
                 id={obj._id}
                 title={obj.title}
-                imageUrl={obj.imageUrl}
+                imageUrl={
+                  obj.imageUrl ? `http://localhost:8080${obj.imageUrl}` : ""
+                }
                 user={obj.user}
                 createdAt={obj.createdAt}
                 cookingtime={obj.cookingtime}

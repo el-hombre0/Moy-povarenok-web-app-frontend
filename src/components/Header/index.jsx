@@ -57,7 +57,7 @@ export const Header = () => {
           <Box m={10}>
             {isAuth ? (
               <>
-                <Link to="/dishes/create">
+                <Link to="/add-dish">
                   <Button color="primary" variant="contained">
                     Добавить блюдо
                   </Button>
