@@ -2,7 +2,7 @@ import axios from 'axios'
 
 /** Подключение к backend */
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://45.12.238.14:8080",
 });
 
 /** Middleware для получения ответа от backend, авторизован user или нет 
