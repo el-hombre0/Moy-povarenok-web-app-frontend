@@ -5,12 +5,14 @@ import Button from "@mui/material/Button";
 import SimpleMDE from "react-simplemde-editor";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/auth";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, useParams } from "react-router-dom";
 import "easymde/dist/easymde.min.css";
 import axios from "../../axios";
 import { Link } from "react-router-dom";
 
 export const AddDish = () => {
+  /** Если в запросе есть id */
+  const { id } = useParams();
   /** Переадресация на статью после её отправки */
   const navigate = useNavigate();
 
@@ -25,6 +27,8 @@ export const AddDish = () => {
   const [imageUrl, setImageUrl] = React.useState("");
 
   const [isLoading, setIsLoading] = React.useState("false");
+
+  const isEditing = Boolean(id);
 
   /** Ссылка на настоящую кнопку загрузки файла */
   const inputFileRef = React.useRef(null);
@@ -55,6 +59,26 @@ export const AddDish = () => {
     setDescription(value);
   }, []);
 
+  /** Получение данных для вставки их в форму при редактировании блюда */
+  React.useEffect(() => {
+    if (id) {
+      axios
+        .get(`/dishes/${id}`)
+        .then(({ data }) => {
+          setTitle(data.title);
+          setCookingTime(data.cookingtime);
+          setDescription(data.description);
+          setImageUrl(data.imageUrl);
+          setTags(data.tags.join(","));
+          setIngredients(data.ingredients.join(","));
+        })
+        .catch((error) => {
+          console.warn(error);
+          alert("Ошибка при загрузке данных блюда!");
+        });
+    }
+  }, []);
+
   /** Настройки редактора */
   const options = React.useMemo(
     () => ({
@@ -71,6 +95,7 @@ export const AddDish = () => {
     []
   );
 
+  /** Обработчик подтверждения формы для добавления нового блюда */
   const onSubmit = async () => {
     try {
       setIsLoading(true);
@@ -80,14 +105,21 @@ export const AddDish = () => {
         cookingtime,
         description,
         imageUrl,
-        ingredients: ingredients.split(','),
-        tags: tags.split(','),
+        ingredients: ingredients.split(","),
+        tags: tags.split(","),
       };
-      // console.log(dataFields);
-      const { data } = await axios.post("/dishes", dataFields);
-      const id = data._id;
 
-      navigate(`/dishes/${id}`);
+      /** В зависимости от флага isEditing выбирается изменение или создание */
+      const { data } = isEditing
+        ? await axios.patch(`/dishes/${id}`, dataFields)
+        : await axios.post("/dishes", dataFields);
+
+      /** Редактирование: перенаправление user на страницу изменяемого блюда
+       * Создание: получения id из новой записи и перенаправление на новую страницу блюда
+       */
+      const _id = isEditing ? id : data._id;
+
+      navigate(`/dishes/${_id}`);
     } catch (error) {
       console.warn(error);
       alert("Ошибка при создании блюда!");
@@ -104,73 +136,73 @@ export const AddDish = () => {
   return (
     <Paper style={{ padding: 30 }}>
       <form>
-      <Button
-        onClick={() => inputFileRef.current.click()}
-        variant="outlined"
-        size="large"
-      >
-        Загрузить изображение
-      </Button>
-      <input
-        type="file"
-        ref={inputFileRef}
-        onChange={handleChangeFile}
-        hidden
-      />
-      {imageUrl && (
-        <>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={onClickRemoveImage}
-          >
-            Удалить
-          </Button>
-          <img src={`http://localhost:8080${imageUrl}`} alt="Uploaded" />
-        </>
-      )}
-
-      <br />
-      <br />
-      <TextField
-        variant="standard"
-        placeholder="Заголовок"
-        fullWidth
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <TextField
-        variant="standard"
-        placeholder="Время приготовления"
-        fullWidth
-        value={cookingtime}
-        onChange={(e) => setCookingTime(e.target.value)}
-      />
-
-      <TextField
-        variant="standard"
-        placeholder="Тэги"
-        fullWidth
-        value={tags}
-        onChange={(e) => setTags(e.target.value)}
-      />
-      <TextField
-        variant="standard"
-        placeholder="Ингредиенты"
-        fullWidth
-        value={ingredients}
-        onChange={(e) => setIngredients(e.target.value)}
-      />
-
-      <SimpleMDE value={description} onChange={onChange} options={options} />
-      <div>
-        <Button onClick={onSubmit} size="large" variant="contained">
-          Опубликовать
+        <Button
+          onClick={() => inputFileRef.current.click()}
+          variant="outlined"
+          size="large"
+        >
+          Загрузить изображение
         </Button>
-        <Link to="/">
-          <Button size="large">Отмена</Button>
-        </Link>
-      </div>
+        <input
+          type="file"
+          ref={inputFileRef}
+          onChange={handleChangeFile}
+          hidden
+        />
+        {imageUrl && (
+          <>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={onClickRemoveImage}
+            >
+              Удалить
+            </Button>
+            <img src={`http://localhost:8080${imageUrl}`} alt="Uploaded" />
+          </>
+        )}
+
+        <br />
+        <br />
+        <TextField
+          variant="standard"
+          placeholder="Заголовок"
+          fullWidth
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <TextField
+          variant="standard"
+          placeholder="Время приготовления"
+          fullWidth
+          value={cookingtime}
+          onChange={(e) => setCookingTime(e.target.value)}
+        />
+
+        <TextField
+          variant="standard"
+          placeholder="Тэги"
+          fullWidth
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+        />
+        <TextField
+          variant="standard"
+          placeholder="Ингредиенты"
+          fullWidth
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+        />
+
+        <SimpleMDE value={description} onChange={onChange} options={options} />
+        <div>
+          <Button onClick={onSubmit} size="large" variant="contained">
+            {isEditing ? "Сохранить" : "Опубликовать"}
+          </Button>
+          <Link to="/">
+            <Button size="large">Отмена</Button>
+          </Link>
+        </div>
       </form>
     </Paper>
   );
