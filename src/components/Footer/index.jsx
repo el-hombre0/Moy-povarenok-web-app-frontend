@@ -1,7 +1,7 @@
 import s from "./Footer.module.css";
 
 export const Footer = () => {
-    return <footer className={s.header}>
-        <p className={s.p}>Test Footer</p>
+    return <footer>
+        <p >Efimtsev Stanislav, RTU MIREA, 2023</p>
     </footer>
 };

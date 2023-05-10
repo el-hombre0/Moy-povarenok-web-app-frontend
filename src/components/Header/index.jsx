@@ -52,7 +52,7 @@ export const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Link to="/">Поворёнок</Link>
+            <Link to="/">Поварёнок</Link>
           </Typography>
           <Box m={10}>
             {isAuth ? (

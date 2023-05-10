@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import React from "react";
 import axios from "../axios";
 import ReactMarkdown from "react-markdown";
+import { hostname } from "../hostname";
+
 
 export const FullDish = () => {
   const [data, setData] = React.useState();
@@ -34,7 +36,7 @@ export const FullDish = () => {
         id={data._id}
         title={data.title}
         cookingtime={data.cookingtime}
-        imageUrl={data.imageUrl ? `http://localhost:8080${data.imageUrl}` : ""}
+        imageUrl={data.imageUrl ? `http://${hostname}:8080${data.imageUrl}` : ""}
         ingredients={data.ingredients}
         user={data.user}
         createdAt={data.createdAt}

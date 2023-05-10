@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TagsBlock } from "../components/TagsBlock";
 import { Dish } from "../components/Dish";
 import { fetchDishes, fetchTags } from "../redux/slices/dishes";
+import { hostname } from "../hostname";
 
 function Home() {
   const dispatch = useDispatch();
@@ -24,11 +25,11 @@ function Home() {
 
   return (
     <>
-      <Tabs>
+      {/* <Tabs>
         <Tab label="Новые" />
-      </Tabs>
+      </Tabs> */}
 
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         <Grid xs={8} item>
           {(isDishesLoading ? [...Array(5)] : dishes.items).map((obj, index) =>
             isDishesLoading ? (
@@ -38,7 +39,7 @@ function Home() {
                 id={obj._id}
                 title={obj.title}
                 imageUrl={
-                  obj.imageUrl ? `http://localhost:8080${obj.imageUrl}` : ""
+                  obj.imageUrl ? `http://${hostname}:8080${obj.imageUrl}` : ""
                 }
                 user={obj.user}
                 createdAt={obj.createdAt}
@@ -49,6 +50,7 @@ function Home() {
                 isLoading={true}
                 isEditable={userData?._id === obj.user._id}
               />
+              
             )
           )}
         </Grid>

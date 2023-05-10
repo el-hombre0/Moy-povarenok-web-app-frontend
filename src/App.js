@@ -22,7 +22,7 @@ function App() {
       <Header />
       <Container maxWidth="lg">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/dishes/:id" element={<FullDish />} />
           <Route path="/dishes/:id/edit" element={<AddDish />} />
           <Route path="/add-dish" element={<AddDish />} />

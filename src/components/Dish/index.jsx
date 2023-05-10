@@ -35,7 +35,7 @@ export const Dish = ({
 
   return (
     <div>
-      {/* {isEditable && ( */}
+      {isEditable != false && (
         <div>
           <Box>
             <Link to={`/dishes/${id}/edit`}>
@@ -80,7 +80,7 @@ export const Dish = ({
             </div>
           </Box>
         </div>
-       {/* )}  */}
+       )}  
     </div>
   );
 };
