@@ -1,0 +1,19 @@
+.dishCardLink {
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(56, 56, 254, 0.87);
+}
+
+a:active {
+  color: rgba(220, 51, 0, 0.87);
+}
+
+a:visited {
+  color: rgba(110, 110, 167, 0.87);
+}
+
+hr {
+  border-top: 3px solid rgb(34, 34, 34);
+}

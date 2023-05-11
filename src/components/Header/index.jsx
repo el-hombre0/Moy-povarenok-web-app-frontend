@@ -40,8 +40,8 @@ export const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="relative" color="default">
-      <Container maxWidth="lg">
+    <AppBar position="sticky" color="default">
+      <Container maxWidth="md">
         <Toolbar>
           <IconButton
             edge="start"
@@ -52,9 +52,9 @@ export const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Link to="/">Поварёнок</Link>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Мой Поварёнок</Link>
           </Typography>
-          <Box m={10}>
+          <Box m={2}>
             {isAuth ? (
               <>
                 <Link to="/add-dish">

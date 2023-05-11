@@ -1,4 +1,4 @@
-// import "./App.css";
+import "./App.css";
 import React from "react";
 import { Header, Footer } from "./components/";
 import { Home, AddDish, FullDish, Login, Registration } from "./pages";
