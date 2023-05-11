@@ -9,6 +9,7 @@ import { useNavigate, Navigate, useParams } from "react-router-dom";
 import "easymde/dist/easymde.min.css";
 import axios from "../../axios";
 import { Link } from "react-router-dom";
+import { hostname } from "../../hostname";
 
 export const AddDish = () => {
   /** Если в запросе есть id */
@@ -158,7 +159,7 @@ export const AddDish = () => {
             >
               Удалить
             </Button>
-            <img src={`http://localhost:8080${imageUrl}`} alt="Uploaded" />
+            <img src={`http://${hostname}:8080${imageUrl}`} alt="Uploaded" />
           </>
         )}
 

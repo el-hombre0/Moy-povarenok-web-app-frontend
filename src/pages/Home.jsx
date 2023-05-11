@@ -1,6 +1,4 @@
 import {
-  Tabs,
-  Tab,
   Grid,
   Paper,
   Container,

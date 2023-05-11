@@ -8,8 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 ###  Installing dependencies
-RUN npm install -g npm@9.6.6
-RUN npm install 
+RUN npm install --legacy-peer-deps
 
 # copy local files to app folder
 COPY . .
