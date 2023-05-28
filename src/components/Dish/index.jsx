@@ -42,7 +42,7 @@ export const Dish = ({
       {isEditable != false && (
         <>
           <Box>
-            <Typography>
+            <Typography component={'span'}>
               <h2>
                 {isFullDish ? (
                   title
@@ -82,14 +82,14 @@ export const Dish = ({
               <h4>Тэги:</h4>
               <ul className="tagsList">
                 {tags?.map((name) => (
-                  <Link to={`/tag/${name}`} className={s.dishCardLink}>
+                  <Link to={`/tag/${name}`} className={s.dishCardLink} key={name}>
                     #{name}
                   </Link>
                 ))}
               </ul>
               <h3>
                 {isFullDish ? (
-                  <Typography>
+                  <Typography component={'span'}>
                     <h3>Описание</h3>
                     {description}
                   </Typography>

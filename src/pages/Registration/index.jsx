@@ -56,7 +56,7 @@ export const Registration = () => {
   return (
     <Paper>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h5">Создание аккаунта</Typography>
+        <Typography component={'span'} variant="h5">Создание аккаунта</Typography>
         <div>
           <Avatar sx={{ width: 100, height: 100 }} />
         </div>

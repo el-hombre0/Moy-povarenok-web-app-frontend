@@ -1,29 +1,24 @@
-import {
-  Grid,
-  Paper,
-  Container,
-  Typography,
-} from "@material-ui/core";
+import { Grid, Paper, Container, Typography } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TagsBlock } from "../components/TagsBlock";
 import { Dish } from "../components/Dish";
 import { fetchDishes, fetchTags } from "../redux/slices/dishes";
 import { hostname } from "../hostname";
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    border: '4px solid green',
-    display: 'inline-flex',
+    border: "4px solid green",
+    display: "inline-flex",
   },
-  item: {border: '1', borderRadius: '30px'}, 
+  item: { border: "1", borderRadius: "30px" },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
-  }
-}))
+  },
+}));
 
 function Home() {
   const dispatch = useDispatch();
@@ -48,11 +43,11 @@ function Home() {
       {/* <Tabs>
         <Tab label="Новые" />
       </Tabs> */}
-      <Paper >
+      <Paper>
         <Container maxWidth="lg">
           <Grid container spacing={4}>
-            <Grid xs={8} item classeName={classes.item}>
-              <Typography>
+            <Grid xs={8} item className={classes.item}>
+              <Typography component={"span"}>
                 {(isDishesLoading ? [...Array(5)] : dishes.items).map(
                   (obj, index) =>
                     isDishesLoading ? (
@@ -74,14 +69,17 @@ function Home() {
                         ingredients={obj.ingredients}
                         isLoading={true}
                         isEditable={userData?._id === obj.user._id}
+                        key={index}
                       />
                     )
                 )}
               </Typography>
             </Grid>
-            <Grid xs={4} item>
-              <TagsBlock items={tags.items} isLoading={isTagsLoading} />
-            </Grid>
+            {userData?._id ? (
+              <Grid xs={4} item>
+                <TagsBlock items={tags.items} isLoading={isTagsLoading} />
+              </Grid>
+            ) : null}
           </Grid>
         </Container>
       </Paper>

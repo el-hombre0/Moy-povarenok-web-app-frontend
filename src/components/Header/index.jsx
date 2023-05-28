@@ -10,6 +10,7 @@ import {
   Box,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, selectIsAuth } from "../../redux/slices/auth";
@@ -51,12 +52,17 @@ export const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography component={'span'} variant="h6" className={classes.title}>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Мой Поварёнок</Link>
           </Typography>
           <Box m={2}>
             {isAuth ? (
               <>
+              <Link to="/profile">
+                <IconButton>
+                  <AccountCircleIcon/>
+                </IconButton>
+              </Link>
                 <Link to="/add-dish">
                   <Button color="primary" variant="contained">
                     Добавить блюдо

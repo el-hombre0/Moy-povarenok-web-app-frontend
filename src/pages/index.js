@@ -3,3 +3,4 @@ export { AddDish } from './AddDish';
 export { FullDish } from './FullDish';
 export { Login } from './Login';
 export { Registration } from './Registration';
+export { UserProfile } from './UserProfile';
