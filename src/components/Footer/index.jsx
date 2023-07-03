@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
+    <Typography component={'span'} variant="body2" color="secondary">
       {"Copyright © "}
       <Link color="inherit" to="/">
         Мой Поварёнок

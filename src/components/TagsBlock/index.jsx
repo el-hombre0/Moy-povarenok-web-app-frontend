@@ -12,7 +12,7 @@ export const TagsBlock = ({ items, isLoading = true }) => {
     <SideBlock title="Тэги">
       <List>
         {(isLoading ? [...Array(5)] : items).map((name, i) => (
-          <Link to={`/tags/${name}`} className={s.tagsCardLink}>
+          <Link to={`/tags/${name}`} className={s.tagsCardLink} key={i}>
             <ListItem>
               <ListItemButton>
                 <ListItemIcon>

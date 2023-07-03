@@ -53,7 +53,7 @@ export const Login = () => {
 
   return (
     <Paper>
-      <Typography variant="h5">Вход в аккаунт</Typography>
+      <Typography component={'span'} variant="h5">Вход в аккаунт</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="E-Mail"

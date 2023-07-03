@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { Header, Footer } from "./components/";
-import { Home, AddDish, FullDish, Login, Registration } from "./pages";
+import { Home, AddDish, FullDish, Login, Registration, UserProfile } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,7 @@ function App() {
           <Route path="/add-dish" element={<AddDish />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/profile" element={<UserProfile/>} />
         </Routes>
       </Container>
       <Footer />

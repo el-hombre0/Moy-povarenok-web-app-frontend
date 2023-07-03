@@ -25,6 +25,7 @@ export const fetchRegister = createAsyncThunk(
   }
 );
 
+
 /**Начальное состояние для user */
 const initialState = {
   data: null,
